@@ -1,25 +1,17 @@
 Package: BPReg
-
 Title: Bayesian penalized regressions for non-stationary Gaussian linear mixed effects model.
-Version: 1.0
-
-Authors@R:person(given = "Emrah",
-family = "Gecili",
- role = c("aut", "cre"),
- email = "emrah.gecili@cchmc.org")
-
+Version: 0.9Authors@R: 
+    person(given = "Emrah",
+           family = "Gecili",
+           role = c("aut", "cre"),
+           email = "emrah.gecili@cchmc.org",
+           comment = c(ORCID = ""))
 Description: Bayesian penalized regressions for non-stationary Gaussian linear mixed effects model (Diggle et al. 2015). Specifically, it assumes integrated brownian motion for W as stochastic process. Returns posterior estimates and credible intervals.  It additionally contains functions for diagnostic checks of posteriro samples such as tracing plots,etc.
-
 License:`use_gpl3_license()`
-
 Encoding: UTF-8
-
 LazyData: true
-
 Roxygen: list(markdown = TRUE)
-
 RoxygenNote: 7.1.1
-
 Imports:
   MCMCpack,
   statmod,
