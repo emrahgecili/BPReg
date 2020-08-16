@@ -2,7 +2,7 @@
 % Please edit documentation in R/MCMC_aburn.R
 \name{MCMC_aburn}
 \alias{MCMC_aburn}
-\title{MCMC_aburn}
+\title{Performs burnin to MCMC output object}
 \usage{
 MCMC_aburn(burnin)
 }
