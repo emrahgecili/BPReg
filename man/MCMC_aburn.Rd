@@ -2,7 +2,7 @@
 % Please edit documentation in R/MCMC_aburn.R
 \name{MCMC_aburn}
 \alias{MCMC_aburn}
-\title{Bayesian penalized regressions for non-stationary Gaussian linear mixed effects model.}
+\title{MCMC_aburn}
 \usage{
 MCMC_aburn(burnin)
 }
@@ -10,11 +10,11 @@ MCMC_aburn(burnin)
 \item{burnin}{amount of burnin.}
 }
 \value{
-Performs burnin and returns remaining MCMC samples example.
+Returns remaining MCMC samples after burnin.
 }
 \description{
-Bayesian penalized regressions for non-stationary Gaussian linear mixed effects model.
+Performs burnin and returns remaining MCMC samples example.
 }
 \examples{
-M=MCMC_aburn(burnin=40)
+M=MCMC_aburn(burnin=5000)
 }
