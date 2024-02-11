@@ -16,44 +16,18 @@ In omics experiments, estimation and variable selection can involve thousands of
 
 # Method
 
-Our methodology and details of prediction model are described in our main article [2]. The
-original article provides additional real data applications with several real cystic-fibrosis
-(CF) lung function and geomarker datasets and simulations for different data settings.
-All the computations are implemented in R by using the code provided at this GitHub page:
-https://github.com/emrahgecili/hypercube.
+Our methodology and details of prediction model are described in our main article [1]. The
+original article provides additional real data applications with a real cystic-fibrosis
+(CF) lung function and proteomic datasets and simulations for different data settings.
 
 # CD4 Yeast Cell-Cycle Genomic Data Analysis
 
-We now performed our proposed method on a well-studied yeast cell-circle gene expression
-data [3-6]. The data were longitudinally collected mRNA gene expression levels in a yeast
-two cell-cycle period at M/G1-G1-S-G2-M stages. Transcription factors (TFs), which could
-regulate the gene expression levels during the cell-cycle process, are thus critical to identify.
-The data we used in this application consists of 297 genes expression levels over 4 time points
-at G1 stage and p = 96 TFs, where TFs are log-transformed.
-The proposed method was applied to this data. In our analysis, we first arrange 96 TFs
-to a 5 × 5 × 5 cube to include all TFs with some 0 entries. Then 43 variables were selected
-under the choice of keeping predictors with two lowest p-values. Then 43 variables were
-arranged to form 7×7 two-dimensional square, and with only keeping the variables that are
-significant at 0.05 level, 14 TFs were identified (CBF1, CIN5, FKH2, GAT3, MBP1, MCM1,
-NDD1, PUT3, RGM1, RLM1, STB1, STP1, SWI6, YAP5). We tried to fit model (??)
-that includes all 14 selected TFs but the this model failed due to multicollinearity problem.
-Although the subjects in this study do not have long sequences of repeated measurements,
-the proposed methods were able to identify important TFs that have already been verified
-by some biological experiments using genome-wide binding techniques. For example, MBP1
-is a crucial transcription factor involved in cell cycle progression from G1 to S stage; NDD1 
-regulate G2/M genes through binding to their promotes; function of FKH2 is activation of
-its M stage-specific target genes and it is a cell cycle activator for genes in GFKH2 during
-the G2 stage; STB1 encodes a protein that contributes to the regulation of SBF and MBF
-target genes; expression is cell cycle-regulated in stages G1 and S. Our analysis resulted in
-more discoveries and all of these additional TFs have been reported as key cell cycle TFs in
-different stages. We refer to studies [3-6] for additional context on this genomic data and
-TFs. \par
+We analyzed a subset of the yeast cell-cycle gene expression, which has been previously considered by others [2-4].These data were longitudinally collected in the CDC15 experiment performed by Spellman et al. [5] where genome-wide mRNA levels of 6178 yeast open reading frames in a two cell-cycle period were measured at M/G1-G1-S-G2-M stages. It is critical to identify transcription factors (TFs) that regulate the gene expression levels of cell cycle-regulated genes to better understand the mechanism underlying cell-cycle process. The subset data that we analyze in this application are obtained from PGEE R package [6], and it consists of 297 cell-cycle regularized genes observed over 4 time points at G1 stage and the standardized binding probabilities of a total of 
+ TFs obtained from a mixture model approach of Wang, Chen and Li [4]. The response variable is the log-transformed gene expression levels and the covariates are the binding probabilities of 96 TFs. The proposed penalized regression models were applied to this data to identify the TFs that influence the gene expression level at G1 stage of the cell process. Again only $\beta_{k}$'s, the coefficients of TFs, are penalized to induce variable selection.
 
-As aforementioned, our approach corroborated TFs that have been identified previously
-in the literature for the genomic data example. Note that, the choices of significance level
-and the dimension of the initial hypercube are not put forward as definitive; significance tests
-were used informally as an aid to interpretation and are calibrated to decrease the number
-of candidate variables.
+In our analysis, BL identified 3 TPs (MBP1, STB1, and NDD1), BAL identified 4 TPs (MBP1, STB1, NDD1, and MTH1), BEN identified 5 TFs (MBP1, STB1, NDD1, SWI6, and FKH2), while BR were able to picked 14 TPs (ABF1, FKH2, GRF10.Pho2., HIR1, HIR2, MET4, MTH1, NDD1, SWI4, YAP6, CIN5, HSF1, MCM1, and SKN7). The computation time for BEN was 6 hours 45 minutes for this specific example when MCMC size was 20k which was long enough for convergence. Although the subjects in this study do not have long sequences of repeated measurements, the proposed methods were able to identify important TFs that have already been verified by some biological experiments using genome-wide binding techniques. For example, MBP1 is a crucial transcription factor involved in cell cycle progression from G1 to S stage; NDD1 regulate G2/M genes through binding to their promotes; function of FKH2 is activation of its M stage-specific target genes and it is a cell cycle activator for genes in GFKH2 during the G2 stage; STB1 encodes a protein that contributes to the regulation of SBF and MBF target genes; expression is cell cycle-regulated in stages G1 and S. BR resulted in more discoveries and all of these additional TFs have been reported as key cell cycle TFs in different stages. We refer to studies by [2-4] for additional details on context of the TFs.
+
+We incorporated a variety of Bayesian shrinkage approaches to perform variable selection for a Gaussian linear mixed effects model with nonstationary covariance structure, thereby incorporating the complicated structure of long sequences of repeated, mistimed measurements on the response variable. For the genomic data example, our approaches corroborated TFs that have been identified previously in the literature.
 
 ![Posterior mean estimates and their 95\% credible intervals for the coefficients for select TFs from our four models.](https://github.com/emrahgecili/BPReg/blob/master/forest%20plots%20for%20all%20four%20models.png)
 
@@ -71,3 +45,9 @@ factors. Proc Natl Acad Sci U S A. 2005;102(38):13532-13537. doi:10.1073/pnas.05
 
 [4] Wang L, Chen G, Li H. Group SCAD regression analysis for microarray time course
 gene expression data. Bioinformatics. 2007;23(12):1486-1494. doi:10.1093/bioinformatics/btm125
+
+[5] Spellman PT, Sherlock G, Zhang MQ, et al. Comprehensive identification of cell cycle-regulated 
+genes of the yeast saccharomyces cerevisiae by microarray hybridization. Mol Biol Cell. 1998; 9(12): 3273-3297.
+
+[6] Inan G, Wang L. PGEE: an R package for analysis of longitudinal data with high-dimensional covariates.
+R J. 2017; 1(9): 393-402. doi:10.32614/RJ-2017-030
