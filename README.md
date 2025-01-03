@@ -31,6 +31,37 @@ We incorporated a variety of Bayesian shrinkage approaches to perform variable s
 
 ![Posterior mean estimates and their 95\% credible intervals for the coefficients for select TFs from our four models.](https://github.com/emrahgecili/BPReg/blob/master/forest%20plots%20for%20all%20four%20models.png)
 
+
+# Example R code for BEN model
+
+library(mcmcplots)
+library(BPReg)
+library(PGEE)
+
+data(yeastG1) 
+data <- yeastG1 
+
+pros=data[,4:99]
+x=as.matrix(pros)
+y=data$y
+id=data$id 
+time<-data$time
+
+cova<-cbind(x)
+x<-scale(cova)
+
+MCMCsamp=BPReg(y,x,time,id,n.samples =8000,r.init = 1,delta.init = 8,method = "BEN")
+
+M=MCMC_aburn(burnin=7000)
+posterior_summary(M, probs = c(0.025, 0.975),robust =FALSE)
+colnames(M)[2]<-"visit_age"
+MCMCplot(M[,c(2:28)],params=colnames(M)[2:28],ref_ovl = TRUE,main="Parameter estimates with BEN",xlab=NULL)
+
+Inf_criteria(M)
+
+MCMCtrace(M, params =colnames(M),ISB = FALSE,pdf = FALSE)
+mcmcplot(M)
+
 # References
 
 [1] Gecili E, Sivaganesan S, Asar O, Clancy JP, Ziady A, Szczesniak RD. Bayesian regularization 
