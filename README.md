@@ -71,6 +71,7 @@ MCMCplot(M[,c(2:28)],params=colnames(M)[2:28],ref_ovl = TRUE,main="Parameter est
 Inf_criteria(M)
 
 MCMCtrace(M, params =colnames(M),ISB = FALSE,pdf = FALSE)
+
 mcmcplot(M)
 
 # References
